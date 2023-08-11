@@ -13,8 +13,13 @@ times = document.getElementById('times'), // times button
 minus = document.getElementById('minus'), // minus button
 plus = document.getElementById('plus'), // plus button
   theNumber = document.querySelectorAll('.numpad'), // number buttons (dot included)
-  theDot = document.querySelectorAll('.dot'), // dot buttons 
+  theDot = document.querySelector('.dot'), // dot buttons 
   equals = document.getElementById('equals'); // equal button
+
+function cliquer(){
+    inputValue += theNumber.textContent;
+}
+theNumber.addEventListener('click',cliquer);
 
 // reset all inputs
 function clearAll() {
@@ -24,7 +29,9 @@ reset.addEventListener('click', clearAll)
 
 // delete last digit
 function clearLastDigit() {
-    // inputValue.substring(0, inputValue.length - 1);
+    inputValue.slice(-1, 1);
     console.log(inputValue);
 }
-clear.addEventListener('click', clearLastDigit)
+//clear.addEventListener('click', clearLastDigit)
+
+// cliquer les digits
