@@ -3,6 +3,7 @@
 // TODO: Faire la manipulation du DOM dans ce fichier
 
 var inputUser = document.getElementById('input'), // input/output button
+inputValue = inputUser.value, // the current input value
 reset = document.getElementById('reset'), // AC button
 clear = document.getElementById('clear'), // clear button
 plusoumoins = document.getElementById('plusoumoins'), // plusaumoins button
@@ -14,3 +15,16 @@ plus = document.getElementById('plus'), // plus button
   theNumber = document.querySelectorAll('.numpad'), // number buttons (dot included)
   theDot = document.querySelectorAll('.dot'), // dot buttons 
   equals = document.getElementById('equals'); // equal button
+
+// reset all inputs
+function clearAll() {
+    inputValue = "";
+}
+reset.addEventListener('click', clearAll)
+
+// delete last digit
+function clearLastDigit() {
+    // inputValue.substring(0, inputValue.length - 1);
+    console.log(inputValue);
+}
+clear.addEventListener('click', clearLastDigit)
