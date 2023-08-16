@@ -18,6 +18,7 @@ buttons.forEach(button => {
 
     const buttonContent = button.textContent;
     
+    //adding digits in the current input
     if (buttonContent >= '0' && buttonContent <= '9') {
       if (buttonContent === '0') {
         if (currentInput.value.length === 1 && currentInput.value === '0') {
@@ -43,7 +44,10 @@ buttons.forEach(button => {
       }
     }
     else {
+
+      // the non-digits buttons
       switch (buttonContent) {
+        // AC and C
         case 'AC' :
           label.innerText = "";
           currentInput.value = "";
@@ -54,6 +58,52 @@ buttons.forEach(button => {
           currentInput.value = currentInput.value.slice(0, -1);
           label = label.slice(0, -1);
           
+          event.preventDefault();
+          break;
+          // operators
+        case '+' :
+          operator = buttonContent;
+          expression = currentInput.value + operator;
+          label.innerHTML += expression;
+          currentInput.value = "";
+
+          event.preventDefault();
+          break;
+        case '-' :
+        operator = buttonContent;
+        expression = currentInput.value + operator;
+        label.innerHTML += expression;
+        currentInput.value = "";
+
+        event.preventDefault();
+          break;
+        case 'x' :
+          operator = '*';
+          expression = currentInput.value + operator;
+          label.innerHTML += expression;
+          currentInput.value = "";
+
+          event.preventDefault();
+          break;
+        case '÷' :
+          operator = '/';
+          expression = currentInput.value + operator;
+          label.innerHTML += expression;
+          currentInput.value = "";
+
+          event.preventDefault();
+          break;
+          //results
+        case '%' :
+          expression = label.innerHTML + currentInput.value;
+          currentInput = eval(expression);
+
+          event.preventDefault();
+          break;
+        case '=' :
+          expression = label.innerHTML + currentInput.value;
+          currentInput = eval(expression);
+
           event.preventDefault();
           break;
       }
