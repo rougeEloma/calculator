@@ -84,7 +84,7 @@ buttons.forEach(button => {
 
         event.preventDefault();
           break;
-        case 'x' :
+        case '×' :
           operator = '*';
           expression = currentInput.value + operator;
           label.innerHTML += expression;
@@ -109,15 +109,19 @@ buttons.forEach(button => {
 
           //results
         case '%' :
-
+          expression += currentInput.value;  
+          finalResult = eval(expression) / 100;
+          currentInput.value = finalResult;
+          label.innerHTML = expression + '%' + finalResult;
+          console.log(finalResult);
 
           event.preventDefault();
           break;
         case '=' :
           expression += currentInput.value;
-          finalResult = eval(parseFloat(expression));
+          finalResult = eval(expression);
           currentInput.value = finalResult;
-          console.log(eval(finalResult));
+          console.log(finalResult);
           label.innerHTML = expression + '=' + finalResult;
 
           event.preventDefault();
