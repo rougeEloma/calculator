@@ -4,9 +4,9 @@
 
 // elements of the DOM HTML
 const label = document.querySelector('#calcul'),
-currentInput = document.querySelector('#input'),
-buttons = document.querySelectorAll('button'),
-form = document.querySelector('form');
+  currentInput = document.querySelector('#input'),
+  buttons = document.querySelectorAll('button'),
+  form = document.querySelector('form');
 
 // containers of each labels
 let expression = ''; // might not need it
@@ -19,18 +19,20 @@ form.addEventListener('submit', event => {
 
 });
 
+currentInput.disabled = true;
+
 buttons.forEach(button => {
   button.addEventListener('click', (event) => {
-    
+
 
     const buttonContent = button.textContent;
-    
+
     //adding digits in the current input
     if (buttonContent >= '0' && buttonContent <= '9') {
       if (buttonContent === '0') {
         if (currentInput.value.length === 1 && currentInput.value === '0') {
           currentInput.value += '';
-        } 
+        }
         else {
           currentInput.value += buttonContent;
         }
@@ -55,20 +57,20 @@ buttons.forEach(button => {
       // the non-digits buttons
       switch (buttonContent) {
         // AC and C
-        case 'AC' :
+        case 'AC':
           label.innerText = "";
           currentInput.value = "";
 
           event.preventDefault();
           break;
-        case 'C' :
+        case 'C':
           currentInput.value = currentInput.value.slice(0, -1);
 
 
           event.preventDefault();
           break;
-          // operators
-        case '+' :
+        // operators
+        case '+':
           operator = buttonContent;
           expression = currentInput.value + operator;
           label.innerHTML += expression;
@@ -76,15 +78,15 @@ buttons.forEach(button => {
 
           event.preventDefault();
           break;
-        case '-' :
-        operator = buttonContent;
-        expression = currentInput.value + operator;
-        label.innerHTML += expression;
-        currentInput.value = "";
+        case '-':
+          operator = buttonContent;
+          expression = currentInput.value + operator;
+          label.innerHTML += expression;
+          currentInput.value = "";
 
-        event.preventDefault();
+          event.preventDefault();
           break;
-        case '×' :
+        case '×':
           operator = '*';
           expression = currentInput.value + operator;
           label.innerHTML += expression;
@@ -92,7 +94,7 @@ buttons.forEach(button => {
 
           event.preventDefault();
           break;
-        case '÷' :
+        case '÷':
           operator = '/';
           expression = currentInput.value + operator;
           label.innerHTML += expression;
@@ -107,9 +109,9 @@ buttons.forEach(button => {
           event.preventDefault();
           break;
 
-          //results
-        case '%' :
-          expression += currentInput.value;  
+        //results
+        case '%':
+          expression = label.innerHTML + currentInput.value;
           finalResult = eval(expression) / 100;
           currentInput.value = finalResult;
           label.innerHTML = expression + '%' + finalResult;
@@ -117,8 +119,8 @@ buttons.forEach(button => {
 
           event.preventDefault();
           break;
-        case '=' :
-          expression += currentInput.value;
+        case '=':
+          expression = label.innerHTML + currentInput.value;
           finalResult = eval(expression);
           currentInput.value = finalResult;
           console.log(finalResult);
@@ -128,6 +130,6 @@ buttons.forEach(button => {
           break;
       }
     }
-    
+
   })
 })
