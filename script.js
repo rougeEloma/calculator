@@ -1,20 +1,27 @@
-import { calculate } from "./calculator.js";
+// import { calculate } from "./calculator.js";
 
 // TODO: Faire la manipulation du DOM dans ce fichier
 
 // elements of the DOM HTML
 const label = document.querySelector('#calcul'),
 currentInput = document.querySelector('#input'),
-buttons = document.querySelectorAll('button');
-
-// const inputValue = currentInput.value;
+buttons = document.querySelectorAll('button'),
+form = document.querySelector('form');
 
 // containers of each labels
 let expression = ''; // might not need it
 let operator = '';
+let finalResult = 0;
+
+// blocking the page refrishing
+form.addEventListener('submit', event => {
+  event.preventDefault();
+
+});
 
 buttons.forEach(button => {
   button.addEventListener('click', (event) => {
+    
 
     const buttonContent = button.textContent;
     
@@ -56,8 +63,8 @@ buttons.forEach(button => {
           break;
         case 'C' :
           currentInput.value = currentInput.value.slice(0, -1);
-          label = label.slice(0, -1);
-          
+
+
           event.preventDefault();
           break;
           // operators
@@ -93,16 +100,25 @@ buttons.forEach(button => {
 
           event.preventDefault();
           break;
+        case '+/-':
+          // Inverser le signe du nombre dans le champ de saisie
+          currentInput.value = -currentInput.value;
+          expression = -expression;
+          event.preventDefault();
+          break;
+
           //results
         case '%' :
-          expression = label.innerHTML + currentInput.value;
-          currentInput = eval(expression);
+
 
           event.preventDefault();
           break;
         case '=' :
-          expression = label.innerHTML + currentInput.value;
-          currentInput = eval(expression);
+          expression += currentInput.value;
+          finalResult = eval(parseFloat(expression));
+          currentInput.value = finalResult;
+          console.log(eval(finalResult));
+          label.innerHTML = expression + '=' + finalResult;
 
           event.preventDefault();
           break;
