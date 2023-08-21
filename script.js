@@ -1,4 +1,3 @@
-// import { calculate } from "./calculator.js";
 
 // TODO: Faire la manipulation du DOM dans ce fichier
 
@@ -19,6 +18,7 @@ form.addEventListener('submit', event => {
 
 });
 
+// disable they keyboard
 currentInput.disabled = true;
 
 buttons.forEach(button => {
@@ -72,7 +72,7 @@ buttons.forEach(button => {
         // operators
         case '+':
           operator = buttonContent;
-          expression = currentInput.value + operator;
+          expression = currentInput.value + ' ' + operator + ' ';
           label.innerHTML += expression;
           currentInput.value = "";
 
@@ -80,7 +80,7 @@ buttons.forEach(button => {
           break;
         case '-':
           operator = buttonContent;
-          expression = currentInput.value + operator;
+          expression = currentInput.value + ' ' + operator + ' ';
           label.innerHTML += expression;
           currentInput.value = "";
 
@@ -88,7 +88,7 @@ buttons.forEach(button => {
           break;
         case '×':
           operator = '*';
-          expression = currentInput.value + operator;
+          expression = currentInput.value + ' ' + operator + ' ';
           label.innerHTML += expression;
           currentInput.value = "";
 
@@ -96,7 +96,7 @@ buttons.forEach(button => {
           break;
         case '÷':
           operator = '/';
-          expression = currentInput.value + operator;
+          expression = currentInput.value + ' ' + operator + ' ';
           label.innerHTML += expression;
           currentInput.value = "";
 
@@ -114,7 +114,7 @@ buttons.forEach(button => {
           expression = label.innerHTML + currentInput.value;
           finalResult = eval(expression) / 100;
           currentInput.value = finalResult;
-          label.innerHTML = expression + '%' + finalResult;
+          label.innerHTML = expression + ' % ' + finalResult;
           console.log(finalResult);
 
           event.preventDefault();
@@ -124,7 +124,7 @@ buttons.forEach(button => {
           finalResult = eval(expression);
           currentInput.value = finalResult;
           console.log(finalResult);
-          label.innerHTML = expression + '=' + finalResult;
+          label.innerHTML = expression + ' = ' + finalResult;
 
           event.preventDefault();
           break;

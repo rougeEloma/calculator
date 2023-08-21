@@ -5,4 +5,3 @@ function calculate(expression) {
   return result;
 }
 
-export { calculate };
