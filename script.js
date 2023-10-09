@@ -115,7 +115,7 @@ buttons.forEach(button => {
           finalResult = eval(expression) / 100;
           currentInput.value = finalResult;
           label.innerHTML = expression + ' % ' + finalResult;
-          console.log(finalResult);
+         // console.log(finalResult);
 
           event.preventDefault();
           break;
