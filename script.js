@@ -1,135 +1,88 @@
 
-// TODO: Faire la manipulation du DOM dans ce fichier
 
-// elements of the DOM HTML
-const label = document.querySelector('#calcul'),
-  currentInput = document.querySelector('#input'),
-  buttons = document.querySelectorAll('button'),
-  form = document.querySelector('form');
+const displayCurrentOperation = document.querySelector('#calcul');
+const inputElement = document.querySelector('#input');
+const resetButton = document.querySelector('#reset');
+const clearButton = document.querySelector('#clear');
+const minusPlusButton = document.querySelector('#plusoumoins');
+const percentageButton = document.querySelector('#percentage');
 
-// containers of each labels
-let expression = ''; // might not need it
-let operator = '';
-let finalResult = 0;
+const divideButton = document.querySelector('#divideby');
+const timesButton = document.querySelector('#times');
+const minusButton = document.querySelector('#minus');
+const plusButton = document.querySelector('#plus');
 
-// blocking the page refrishing
-form.addEventListener('submit', event => {
+const equalsButton = document.querySelector('#equals');
+
+const digitButtons = document.querySelectorAll('.digit');
+
+const dotButton = document.querySelector('#dot');
+
+const operatorsArray = [divideButton, timesButton, minusButton, plusButton];
+
+
+// declaring utility functions
+function clearInput() {
+  inputElement.value = '';
+}
+
+function resetEverything() {
+  clearInput();
+  displayCurrentOperation.innerHTML = '';
+}
+
+function disableKeyboard(event) {
+  if (event.key) {
+    event.preventDefault();
+  }
+}
+
+function addElementToInputElement(value) {
+  inputElement.value += value
+}
+
+function addToDisplayCurrentOperation (toDisplay, operation){
+        displayCurrentOperation.textContent = toDisplay + ' ' + operation;
+    clearInput()
+}
+
+function addInputValueTodisplayCurrentOperation(event) {
   event.preventDefault();
 
-});
+  if (displayCurrentOperation.textContent) {
+  const result =  makeCurrentOperation(event)
+     addToDisplayCurrentOperation(result,event.target.textContent)
+    
+  } else {
+    addToDisplayCurrentOperation(inputElement.value,event.target.textContent)
+  }
 
-// disable they keyboard
-currentInput.disabled = true;
+}
 
-buttons.forEach(button => {
-  button.addEventListener('click', (event) => {
+function makeCurrentOperation(event) {
+  event.preventDefault();
+  const operationTomake = displayCurrentOperation.textContent + ' ' + inputElement.value
 
+  const result = eval(operationTomake.replace("÷","/").replace('×','*'));
+  return result
 
-    const buttonContent = button.textContent;
-
-    //adding digits in the current input
-    if (buttonContent >= '0' && buttonContent <= '9') {
-      if (buttonContent === '0') {
-        if (currentInput.value.length === 1 && currentInput.value === '0') {
-          currentInput.value += '';
-        }
-        else {
-          currentInput.value += buttonContent;
-        }
-      }
-      else {
-        currentInput.value += buttonContent;
-      }
-    }
-    else if (buttonContent === '.') {
-      if (currentInput.value.length === 0) {
-        currentInput.value += '';
-      }
-      else if (currentInput.value.includes(buttonContent)) {
-        currentInput.value += '';
-      }
-      else {
-        currentInput.value += buttonContent;
-      }
-    }
-    else {
-
-      // the non-digits buttons
-      switch (buttonContent) {
-        // AC and C
-        case 'AC':
-          label.innerText = "";
-          currentInput.value = "";
-
-          event.preventDefault();
-          break;
-        case 'C':
-          currentInput.value = currentInput.value.slice(0, -1);
+}
 
 
-          event.preventDefault();
-          break;
-        // operators
-        case '+':
-          operator = buttonContent;
-          expression = currentInput.value + ' ' + operator + ' ';
-          label.innerHTML += expression;
-          currentInput.value = "";
 
-          event.preventDefault();
-          break;
-        case '-':
-          operator = buttonContent;
-          expression = currentInput.value + ' ' + operator + ' ';
-          label.innerHTML += expression;
-          currentInput.value = "";
 
-          event.preventDefault();
-          break;
-        case '×':
-          operator = '*';
-          expression = currentInput.value + ' ' + operator + ' ';
-          label.innerHTML += expression;
-          currentInput.value = "";
-
-          event.preventDefault();
-          break;
-        case '÷':
-          operator = '/';
-          expression = currentInput.value + ' ' + operator + ' ';
-          label.innerHTML += expression;
-          currentInput.value = "";
-
-          event.preventDefault();
-          break;
-        case '+/-':
-          // Inverser le signe du nombre dans le champ de saisie
-          currentInput.value = -currentInput.value;
-          expression = -expression;
-          event.preventDefault();
-          break;
-
-        //results
-        case '%':
-          expression = label.innerHTML + currentInput.value;
-          finalResult = eval(expression) / 100;
-          currentInput.value = finalResult;
-          label.innerHTML = expression + ' % ' + finalResult;
-         // console.log(finalResult);
-
-          event.preventDefault();
-          break;
-        case '=':
-          expression = label.innerHTML + currentInput.value;
-          finalResult = eval(expression);
-          currentInput.value = finalResult;
-          console.log(finalResult);
-          label.innerHTML = expression + ' = ' + finalResult;
-
-          event.preventDefault();
-          break;
-      }
-    }
-
+// add event to different elements
+clearButton.addEventListener('click', clearInput);
+resetButton.addEventListener('click', resetEverything);
+inputElement.addEventListener('keypress', disableKeyboard)
+digitButtons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    addElementToInputElement(button.textContent);
   })
 })
+operatorsArray.forEach(function(operator) {
+  operator.addEventListener('click', addInputValueTodisplayCurrentOperation
+  )
+})
+equalsButton.addEventListener('click', makeCurrentOperation)
+
